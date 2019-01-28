@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Imagen</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div id="app" class="container mt-3">
+		<h1>{{msg}}</h1>
+		<input type="file" @change="previewImage">
+		<div class="card mt-2" style="width: 30rem;" v-if="imageData.length > 0">
+			<img  class="card-img-top" :src="imageData">
+			<div class="card-body">
+				<h5 class="card-title">Card title</h5>
+				<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+				<a href="#" class="btn btn-primary">Go somewhere</a>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.22/dist/vue.js"></script>
+	<script>
+		new Vue({
+			el: '#app',
+			data(){
+				return{
+					msg:'Subir y leer una imagen',
+					imageData:''
+
+				}
+			},
+			methods:{
+				previewImage(event){
+					var input = event.target;
+					if (input.files && input.files[0]) {
+						var reader = new FileReader();
+						reader.onload = (e) => {
+							this.imageData = e.target.result;
+						}
+						reader.readAsDataURL(input.files[0]);
+					}
+				}
+			}
+		})
+	</script>
+</body>
+</html>
